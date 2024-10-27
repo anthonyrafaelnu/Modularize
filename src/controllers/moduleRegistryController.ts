@@ -6,7 +6,7 @@ const moduleRegistryService: IModuleRegistryService = new ModuleRegistryService(
 
 export const userModules = (req: Request, res: Response) => {
     try {
-        res.status(200);
+        res.status(200).json(moduleRegistryService.getModuleReport());
     } catch (error: any) {
         res.status(500).json({ message: error.message || 'Unexpected error' });
     }

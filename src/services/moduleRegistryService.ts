@@ -115,4 +115,8 @@ export class ModuleRegistryService implements IModuleRegistryService {
         
         return userModule;
     }
+
+    public getModuleReport(): Record<string, Record<string, string[]>> {
+        return this.moduleRegistry.getModuleReport();
+    }
 }
