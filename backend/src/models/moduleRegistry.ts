@@ -57,39 +57,49 @@ export class ModuleRegistry {
         
         return formattedReports;
     }
-    
+
     findMinimumUserSet(): string[] {
-        
         const providers: Set<string> = new Set();
-        const users: Set<string> = new Set();
-
-        for (const userModule of this.userModules) {
-            const providersOfModule: Map<string, string> = userModule.getProviders();
+        const users: Map<string, Set<string>> = new Map();
     
-            for (const provider of providersOfModule.values()) {
-                providers.add(provider);
-            }
-        }
-
         for (const userModule of this.userModules) {
             const userName = userModule.getName();
-            const providersOfModule = userModule.getProviderValues();
-
-            providers.forEach(provider => {
-                if(providersOfModule.includes(provider)){
-                    providers.delete(provider);
-                    if(!users.has(userName)){
-                        users.add(userName);
-                    }
-                }
-            });
-
-            providers.values()
-        }
-
-        return Array.from(users);
-    }
+            const providersOfModule = new Set(userModule.getProviderValues());
     
+            providersOfModule.forEach(provider => providers.add(provider));
+    
+            users.set(userName, providersOfModule);
+        }
+    
+        const selectedUsers: Set<string> = new Set();
+        const coveredProviders: Set<string> = new Set();
+    
+        while (coveredProviders.size < providers.size) {
+            let bestUser: string | null = null;
+            let maxCoveredNewProviders = 0;
+    
+            for (const [user, userProviders] of users.entries()) {
+                const newCovered = new Set(
+                    [...userProviders].filter(provider => !coveredProviders.has(provider))
+                );
+    
+                if (newCovered.size > maxCoveredNewProviders) {
+                    bestUser = user;
+                    maxCoveredNewProviders = newCovered.size;
+                }
+            }
+    
+            if (bestUser) {
+                selectedUsers.add(bestUser);
+                users.get(bestUser)!.forEach(provider => coveredProviders.add(provider));
+                users.delete(bestUser);
+            } else {
+                break;
+            }
+        }
+    
+        return Array.from(selectedUsers);
+    }    
 
     public getUserModules(): UserModule[] {
         return this.userModules;

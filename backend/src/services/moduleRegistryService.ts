@@ -45,30 +45,44 @@ export class ModuleRegistryService implements IModuleRegistryService {
                 }
             }
         });
-    }    
-    
+    }
+
     public isValidUserModule(filePath: string): boolean {
         if (!fs.existsSync(filePath)) {
             return false;
         }
-
+    
         const data = fs.readFileSync(filePath, 'utf-8');
-        const userModuleData = JSON.parse(data);
-
-        if (!userModuleData || typeof userModuleData !== 'object' || Object.keys(userModuleData).length === 0) {
+        let userModuleData;
+        
+        try {
+            userModuleData = JSON.parse(data);
+        } catch (parseError) {
+            console.warn("JSON inválido:", parseError);
             return false;
         }
-
+        
+        if (
+            !userModuleData ||
+            typeof userModuleData !== 'object' ||
+            !userModuleData.provider ||
+            typeof userModuleData.provider !== 'object' ||
+            !userModuleData.provider.content_module ||
+            !userModuleData.provider.auth_module
+        ) {
+            console.warn("Estructura de proveedor inválida en JSON:", userModuleData);
+            return false;
+        }
+    
         try {
             this.parseJsonToUserModule(userModuleData);
             return true;
         } catch (error: unknown) {
             const errorMessage = error instanceof Error ? error.message : 'Unexpected error';
-            console.warn(errorMessage);
+            console.warn("Error al parsear el módulo:", errorMessage);
             return false;
         }
-
-    }
+    }    
     
     public loadNewJsonToUserModule(filePath: string): void {
         if (!fs.existsSync(filePath)) {

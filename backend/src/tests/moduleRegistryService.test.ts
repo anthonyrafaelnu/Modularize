@@ -53,15 +53,18 @@ describe('ModuleRegistryService', () => {
                 }
             }
         ];
-
+    
         userJsons.forEach((userJson, index) => {
-            fs.writeFileSync(path.join(testDirectory, `user${index + 1}.json`), JSON.stringify(userJson));
+            const filePath = path.join(testDirectory, `user${index + 1}.json`);
+            fs.writeFileSync(filePath, JSON.stringify(userJson));
+            console.log('Archivo JSON guardado:', fs.readFileSync(filePath, 'utf8'));
         });
-
+    
         moduleRegistryService.loadExistingJsons();
-
+    
         const moduleRegistry = ModuleRegistry.getInstance();
         const userModules = moduleRegistry.getUserModules();
+    
         expect(userModules.length).toBe(2);
         expect(userModules[0].getName()).toBe("User 1");
         expect(userModules[1].getName()).toBe("User 2");
