@@ -23,9 +23,9 @@ Esta primera versión de la aplicación consta de dos funcionalidades:
 Para lograr esto, se recibe el JSON con la información correspondiente y se parsea los datos del JSON a un objeto de tipo "userModule" que contiene el nombre del usuario y la lista de proveedores que utiliza. El objeto se guarda en una lista en memoria que posteriormente es recorrida para generar este reporte.
 
 2. El usuario debe ser capaz de obtener el conjunto mínimo de usuarios que utilizan todos los módulos.\
-Para generar este conjunto, trabajamos nuevamente sobre la lista de userModules ya cargada en el sistema, la idea es obtener la lista de proveedores del sistema, y posteriormente recorrer, por cada usuario, ir borrando de esa lista si el mismo utiliza ese proveedor, así hasta encontrar el conjunto necesario.
+Para generar este conjunto, se crea un conjunto de todos los proveedores (providers) y un mapa de usuarios a los proveedores que usan (users);mientras que el conjunto de coveredProviders (proveedores cubiertos) no incluya todos los proveedores se busca al usuario que cubra la mayor cantidad de nuevos proveedores que aún no han sido cubiertos; dicho usuario se añade al conjunto selectedUsers, sus proveedores se marcan como cubiertos, y se elimina del mapa users. La función devuelve un arreglo con los nombres de los usuarios seleccionados que cubren todos los proveedores.
 
-Se tuvo en cuenta la reutilización del código, por lo cual vemos una clara separación de responsabilidades; tenemos "routes" que son las que redirigen al usuario al momento de hacer una solicitud al servidor y van directamente contra los "controllers", o sea, no acceden directamente a la implementación, lo cual beneficia mucho la modificabilidad. También se utilizaron interfaces lo cual beneficia la abstracción y polimorfismo. Tenemos una aplicación con bajo acoplamiento, los cual nos permite seguir agregando funcionalidades y, más importante, modificar las ya existentes sin impactar directamente módulos de niveles más altos, como el frontend.
+Respecto al proyecto en sí, se tuvo en cuenta la reutilización del código, por lo cual vemos una clara separación de responsabilidades; tenemos "routes" que son las que redirigen al usuario al momento de hacer una solicitud al servidor y van directamente contra los "controllers", o sea, no acceden directamente a la implementación, lo cual beneficia mucho la modificabilidad. También se utilizaron interfaces lo cual beneficia la abstracción y polimorfismo. Tenemos una aplicación con bajo acoplamiento, los cual nos permite seguir agregando funcionalidades y, más importante, modificar las ya existentes sin impactar directamente módulos de niveles más altos, como el frontend.
 
 También, para asegurar un correcto funcionamiento, se realizaron tests unitarios (no se realizó TDD, pero se probó la mayor parte del código).
 
@@ -48,7 +48,7 @@ Por último, comentar que se utilizó docker para poder desplegar la aplicación
 Nota: El frontend, al no ser la prioridad de este proyecto, fue realizado mayormente con IA, específicamente v0, con el fin de entregar rápidamente un producto funcional.
 
 ## Manual de instalación (normal)
-
+`Se requiere tener node instalado`
 1. **Clona el repositorio**:
    ```bash
    git clone https://github.com/anthonyrafaelnu/Modularize.git
@@ -63,6 +63,7 @@ Nota: El frontend, al no ser la prioridad de este proyecto, fue realizado mayorm
 El servidor se iniciará en: [localhost:3000](http://localhost:3000)\
 El cliente se iniciará en: [localhost:3005](http://localhost:3005)
 ## Manual de instalación (docker)
+`Se requiere tener node y docker instalados`
 1. **Clona el repositorio**:
    ```bash
    git clone https://github.com/anthonyrafaelnu/Modularize.git
