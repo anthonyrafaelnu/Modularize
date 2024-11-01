@@ -4,10 +4,11 @@ const nextConfig = {
     return [
       {
         source: '/json/:path*',
-        destination: 'http://localhost:3000/json/:path*',
+        destination: `http://${process.env.NODE_ENV === "production" ? "backend" : "localhost"}:3000/json/:path*`,
       },
     ]
   },
+  output: "standalone"
 }
 
 module.exports = nextConfig
