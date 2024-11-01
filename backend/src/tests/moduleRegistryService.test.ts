@@ -21,14 +21,19 @@ describe('ModuleRegistryService', () => {
     beforeEach(() => {
         moduleRegistryService = new ModuleRegistryService();
         testDirectory = process.env.JSON_UPLOAD_DIRECTORY!;
-
+    
+        const parentDir = path.dirname(testDirectory);
+        if (!fs.existsSync(parentDir)) {
+            fs.mkdirSync(parentDir, { recursive: true });
+        }
+    
         if (!fs.existsSync(testDirectory)) {
             fs.mkdirSync(testDirectory, { recursive: true });
         }
-
+    
         const moduleRegistry = ModuleRegistry.getInstance();
         moduleRegistry.clear();
-    });
+    });    
 
     afterEach(() => {
         if (fs.existsSync(testDirectory)) {
