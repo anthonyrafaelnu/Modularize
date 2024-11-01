@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import { ModuleRegistry } from "../models/moduleRegistry";
+import { ModuleRegistry } from "../repository/moduleRegistry";
 import { UserModule } from "../models/userModule";
 
 describe('ModuleRegistry', () => {

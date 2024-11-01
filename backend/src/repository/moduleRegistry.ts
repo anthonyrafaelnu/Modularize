@@ -1,4 +1,4 @@
-import { UserModule } from './userModule';
+import { UserModule } from '../models/userModule';
 
 export class ModuleRegistry {
     private static instance: ModuleRegistry;

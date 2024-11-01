@@ -1,7 +1,7 @@
 import { IModuleRegistryService } from '../interfaces/IModuleRegistryService';
 import fs from 'fs';
 import path from 'path';
-import { ModuleRegistry } from '../models/moduleRegistry';
+import { ModuleRegistry } from '../repository/moduleRegistry';
 import { UserModule } from '../models/userModule';
 
 export class ModuleRegistryService implements IModuleRegistryService {

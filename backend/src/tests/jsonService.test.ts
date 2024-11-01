@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import dotenv from 'dotenv';
 import { JsonService } from '../services/jsonService';
-import { ModuleRegistry } from '../models/moduleRegistry';
+import { ModuleRegistry } from '../repository/moduleRegistry';
 
 dotenv.config({ path: '.env.test' });
 

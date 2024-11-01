@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import dotenv from 'dotenv';
 import { ModuleRegistryService } from '../services/moduleRegistryService';
-import { ModuleRegistry } from '../models/moduleRegistry';
+import { ModuleRegistry } from '../repository/moduleRegistry';
 
 /* eslint-disable */
 
