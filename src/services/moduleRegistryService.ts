@@ -119,4 +119,8 @@ export class ModuleRegistryService implements IModuleRegistryService {
     public getModuleReport(): Record<string, Record<string, string[]>> {
         return this.moduleRegistry.getModuleReport();
     }
+
+    public findMinimumUserSet(): string[] {
+        return this.moduleRegistry.findMinimumUserSet();
+    }
 }

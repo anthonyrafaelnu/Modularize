@@ -15,6 +15,9 @@ export class ModuleRegistry {
     }
 
     public addUserModule(userModule: UserModule): void {
+        if (!userModule || !userModule.getName() || !userModule.getProviderKeys()) {
+            return;
+        }
         this.userModules.push(userModule);
         this.updateModuleReport(userModule);
     }
@@ -54,6 +57,39 @@ export class ModuleRegistry {
         
         return formattedReports;
     }
+    
+    findMinimumUserSet(): string[] {
+        
+        let providers: Set<string> = new Set();
+        const users: Set<string> = new Set();
+
+        for (const userModule of this.userModules) {
+            const providersOfModule: Map<string, string> = userModule.getProviders();
+    
+            for (const provider of providersOfModule.values()) {
+                providers.add(provider);
+            }
+        }
+
+        for (const userModule of this.userModules) {
+            const userName = userModule.getName();
+            let providersOfModule = userModule.getProviderValues();
+
+            providers.forEach(provider => {
+                if(providersOfModule.includes(provider)){
+                    providers.delete(provider);
+                    if(!users.has(userName)){
+                        users.add(userName);
+                    }
+                }
+            });
+
+            providers.values()
+        }
+
+        return Array.from(users);
+    }
+    
 
     public getUserModules(): UserModule[] {
         return this.userModules;

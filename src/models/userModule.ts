@@ -22,8 +22,16 @@ export class UserModule {
         return this.provider.get(key);
     }
 
+    public getProviders(): Map<string, string> {
+        return this.provider;
+    }
+
     public getProviderKeys(): string[] {
         return Array.from(this.provider.keys());
+    }
+
+    public getProviderValues(): string[] {
+        return Array.from(this.provider.values());
     }
 
     public toJSON() {

@@ -67,7 +67,7 @@ describe('ModuleRegistryService', () => {
 
     test('should not load any JSON files if directory is empty', () => {
         fs.rmSync(testDirectory, { recursive: true });
-        fs.mkdirSync(testDirectory);
+        fs.mkdirSync(testDirectory, { recursive: true });
 
         moduleRegistryService.loadExistingJsons();
 
