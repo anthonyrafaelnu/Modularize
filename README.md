@@ -7,6 +7,7 @@
 - [Tecnologías utilizadas](#tecnologías-utilizadas)
 - [Manual de instalación (normal)](#manual-de-instalación-normal)
 - [Manual de instalación (docker)](#manual-de-instalación-docker)
+- [Pruebas con Postman](#pruebas-con-postman)
 - [Ideas para el futuro](#ideas-para-el-futuro)
 
 ## Presentación del proyecto
@@ -59,6 +60,8 @@ Nota: El frontend, al no ser la prioridad de este proyecto, fue realizado mayorm
 (Parado tanto en el back como en el front)
     ```bash
     npm run dev
+El servidor se iniciará en: [localhost:3000](http://localhost:3000)\
+El cliente se iniciará en: [localhost:3005](http://localhost:3005)
 ## Manual de instalación (docker)
 1. **Clona el repositorio**:
    ```bash
@@ -66,6 +69,16 @@ Nota: El frontend, al no ser la prioridad de este proyecto, fue realizado mayorm
 2. **Ejecuta el docker compose**
    ```bash
    docker-compose -f docker-hub-compose.yml up
+El servidor se iniciará en: [localhost:3000](http://localhost:3000)\
+El cliente se iniciará en: [localhost:3005](http://localhost:3005)
+## Pruebas con Postman
+Se pueden realizar pruebas para obtener la salida de los reportes en postman.
+Ejemplo:
+
+- http://localhost:3000/json/save
+![alt text](images/save-postman.png)
+- http://localhost:3000/json/moduleRegistry (Reporte de módulos)
+- http://localhost:3000/json/userSet (Reporte de conjuntos de usuarios)
 ## Ideas para el futuro
 
 - Implementar una funcionalidad que permita a los usuarios ver los archivos JSON cargados desde el frontend y tener opciones para eliminarlos o modificarlos.
