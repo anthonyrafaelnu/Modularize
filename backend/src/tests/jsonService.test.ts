@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import fs from 'fs';
 import path from 'path';
 import dotenv from 'dotenv';
@@ -20,18 +22,24 @@ describe('JsonService', () => {
         jsonService = new JsonService();
         
         testDirectory = process.env.JSON_UPLOAD_DIRECTORY!;
-
+    
         if (!fs.existsSync(testDirectory)) {
             fs.mkdirSync(testDirectory, { recursive: true });
         }
-
+    
         ModuleRegistry.getInstance().clear();
     });
-
+    
     afterEach(() => {
         jest.clearAllMocks();
+    
         if (fs.existsSync(testDirectory)) {
-            fs.rmSync(testDirectory, { recursive: true });
+            const files = fs.readdirSync(testDirectory);
+            for (const file of files) {
+                const filePath = path.join(testDirectory, file);
+                fs.unlinkSync(filePath);
+            }
+            fs.rmdirSync(testDirectory);
         }
     });
 

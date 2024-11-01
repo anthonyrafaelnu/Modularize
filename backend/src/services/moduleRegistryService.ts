@@ -17,7 +17,7 @@ export class ModuleRegistryService implements IModuleRegistryService {
         }
 
         this.moduleRegistry = ModuleRegistry.getInstance();
-    }
+    } 
 
     public loadExistingJsons(): void {
         if (!fs.existsSync(this.directoryPath)) {
@@ -38,12 +38,14 @@ export class ModuleRegistryService implements IModuleRegistryService {
     
                     const userModule = this.parseJsonToUserModule(userModuleData);
                     this.moduleRegistry.addUserModule(userModule);
-                } catch (error: any) {
+                } catch (error: unknown) {
+                    const errorMessage = error instanceof Error ? error.message : 'Unexpected error';
+                    console.warn(errorMessage);
                     return;
                 }
             }
         });
-    }  
+    }    
     
     public isValidUserModule(filePath: string): boolean {
         if (!fs.existsSync(filePath)) {
@@ -60,7 +62,9 @@ export class ModuleRegistryService implements IModuleRegistryService {
         try {
             this.parseJsonToUserModule(userModuleData);
             return true;
-        } catch (error: any) {
+        } catch (error: unknown) {
+            const errorMessage = error instanceof Error ? error.message : 'Unexpected error';
+            console.warn(errorMessage);
             return false;
         }
 
@@ -86,6 +90,7 @@ export class ModuleRegistryService implements IModuleRegistryService {
         this.moduleRegistry.addUserModule(userModule);
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public parseJsonToUserModule(data: any): UserModule {
         if (!data) {
             throw new Error('Data cannot be null');

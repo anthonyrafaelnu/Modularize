@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { ModuleRegistry } from "../models/moduleRegistry";
 import { UserModule } from "../models/userModule";
 

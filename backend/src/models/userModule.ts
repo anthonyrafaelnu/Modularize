@@ -34,7 +34,7 @@ export class UserModule {
         return Array.from(this.provider.values());
     }
 
-    public toJSON() {
+    public toJSON(): { name: string; provider: Record<string, string> } {
         return {
             name: this.name,
             provider: Object.fromEntries(this.provider),

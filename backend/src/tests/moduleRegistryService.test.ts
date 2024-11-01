@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import { ModuleRegistryService } from '../services/moduleRegistryService';
 import { ModuleRegistry } from '../models/moduleRegistry';
 
+/* eslint-disable */
+
 dotenv.config({ path: '.env.test' });
 
 describe('ModuleRegistryService', () => {

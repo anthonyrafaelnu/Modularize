@@ -17,7 +17,7 @@ export class JsonService implements IJsonService {
         }
     }
 
-    public saveJson(data: any, filename: string): void {
+    public saveJson(data: unknown, filename: string): void {
 
         if (!this.directoryPath) {
             throw new Error('Upload directory is not set');

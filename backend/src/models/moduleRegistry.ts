@@ -60,7 +60,7 @@ export class ModuleRegistry {
     
     findMinimumUserSet(): string[] {
         
-        let providers: Set<string> = new Set();
+        const providers: Set<string> = new Set();
         const users: Set<string> = new Set();
 
         for (const userModule of this.userModules) {
@@ -73,7 +73,7 @@ export class ModuleRegistry {
 
         for (const userModule of this.userModules) {
             const userName = userModule.getName();
-            let providersOfModule = userModule.getProviderValues();
+            const providersOfModule = userModule.getProviderValues();
 
             providers.forEach(provider => {
                 if(providersOfModule.includes(provider)){

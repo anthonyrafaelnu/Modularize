@@ -4,6 +4,8 @@ import path from 'path';
 import { JsonService } from '../services/jsonService';
 import app from '../server';
 
+/* eslint-disable */
+
 jest.mock('../services/jsonService');
 
 const mockJsonService = JsonService as jest.MockedClass<typeof JsonService>;
